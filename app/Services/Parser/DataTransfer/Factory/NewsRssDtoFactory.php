@@ -11,7 +11,7 @@ class NewsRssDtoFactory extends DtoFactory
     /**
      * создание dto из возвращенных данных rss
      *
-     * @param object $item
+     * @param $item
      * @return NewsRssDto
      * @throws Exception
      */
@@ -20,13 +20,20 @@ class NewsRssDtoFactory extends DtoFactory
         $dto->title = $item->title;
         $dto->link = $item->link;
         $dto->pub_date = Carbon::createFromTimeString($item->pubDate);
-        $dto->description = mb_substr($item->description, 0, 200);
+        try {
+            $dto->description = mb_substr($item->description, 0, 200);
+        } catch (\Exception $error) {
+            dd($item);
+        }
+
         $dto->category = $item->category;
         $dto->author = $item->author ?? "";
         $dto->guid = $item->guid;
         //$dto->enclosure = $item->enclosure ?? "";
         $dto->pda_link = $item->rbc_news->pdalink ?? "";
-        $dto->full_text = mb_substr($item->rbc_news->{"full-text"}, 0, 250) ?? "";
+
+        $dto->full_text = gettype($item->rbc_news->{"full-text"}) === "object" ? "Не было передано из новостного ресурса" : mb_substr($item->rbc_news->{"full-text"}, 0, 250) ;
+
         $dto->anons = mb_substr($item->rbc_news->anons, 0, 200) ?? "";
         $dto->news_id = $item->rbc_news->news_id ?? "";
         // public TagDto $tags;

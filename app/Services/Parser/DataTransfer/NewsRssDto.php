@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Services\Parser\DataTransfer;
-use Illuminate\Support\Carbon;
+
 class NewsRssDto
 {
     public int $id;
     public string $title;
     public string $link;
-    public Carbon $pub_date;
+    public $pub_date;
     public string $description;
     public string $category;
     public string $author;
@@ -20,7 +20,7 @@ class NewsRssDto
     public string $type;
     public string $newsline;
     public string $news_date_timestamp;
-    public Carbon $news_modif_date;
+    public $news_modif_date;
     // public $enclosure;
     public $image;
     // public RelatedLinksDto $relatedLinks;

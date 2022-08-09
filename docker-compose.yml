@@ -1,0 +1,46 @@
+version: "3.1"
+
+services:
+
+  nginx:
+    build: docker/nginx
+    container_name: rbk-nginx
+    user: root
+    working_dir: /var/www/rbk
+    volumes:
+      - ./:/var/www/rbk
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - ${DOCKER_WEBSERVER_EXTERNAL_PORT}:80
+      - 443:443
+    restart: always
+
+
+  mariadb:
+    build: docker/mariadb
+    container_name: rbk-db
+    user: ${DB_USERNAME}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_DATABASE: ${DB_DATABASE}
+    ports:
+      - ${MARIA_DB_EXTERNAL_PORT}:3306
+    restart: always
+
+  php-fpm:
+    build: docker/php-fpm
+    container_name: rbk-php
+    user: root
+    working_dir: /var/www/rbk
+    volumes:
+      - ./:/var/www/rbk
+    restart: always
+    ports:
+      - "9822:6001"
+
+  redis:
+    image: redis:alpine
+    container_name: rbk-redis
+    restart: always
+    ports:
+      - "6380:6379"

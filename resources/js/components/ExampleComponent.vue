@@ -22,7 +22,7 @@ export default defineComponent({
     const news = ref(null)
     onMounted(() => {
         axios
-        .get('http://localhost/back/api/rbk-parser')
+        .get('/back/api/rbk-parser')
         .then((response) => {
             news.value = response.data;
         })

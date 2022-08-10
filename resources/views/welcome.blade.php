@@ -31,7 +31,7 @@ if ($manifest) {
             @vite('resources/js/app.css')
         @else
             @if ($cssUrl)
-                @vite($cssUrl)
+                <link rel="stylesheet" href="{{$cssUrl}}" />
             @else
             @endif
         @endif
@@ -49,7 +49,7 @@ if ($manifest) {
                 @vite('resources/js/app.js')
             @else
                 @if ($jsUrl)
-                    @vite($jsUrl)
+                    <script type="module" src="{{$jsUrl}}"></script>
                 @else
                 @endif
             @endif

@@ -23,7 +23,7 @@ class NewsRssDtoFactory extends DtoFactory
         try {
             $dto->description = mb_substr($item->description, 0, 200);
         } catch (\Exception $error) {
-            dd($item);
+            $dto->description = "Нет описания";
         }
 
         $dto->category = $item->category;

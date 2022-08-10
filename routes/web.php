@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('back/', function () {
+Route::get('/{vue_capture?}', function () {
     return view('welcome');
-});
+})->where('vue_capture', '[\/\w\.-]*');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

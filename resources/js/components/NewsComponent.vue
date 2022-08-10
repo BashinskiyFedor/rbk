@@ -1,11 +1,14 @@
 <template>
-    <div class="content">
+    <div class="content" v-if="news">
         <h1>{{news.title}}</h1>
         <div>{{news.rbc_time + " " + news.rbc_date}}</div>
         <div>{{news.full_text}}</div>
         <div v-for="(image, id) in news.image" :key="id">
             <img class="image" :src="image.link"/>
         </div>
+    </div>
+    <div class="content" v-else>
+        <h3>Не стал делать отдельный запрос на бэке для получения данных конкретной новости потому-что не было описано в задании, и поэтому при перезагрузке этой страницы нет данных. Просто перейдите на главную.</h3>
     </div>
 </template>
 
